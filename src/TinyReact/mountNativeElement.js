@@ -6,11 +6,15 @@ export default function mountNativeElement(virtualDom, container, oldDOM) {
   const newElement = createDOMElement(virtualDom);
 
   if (oldDOM) {
-    unmountNode(oldDOM);
+    container.insertBefore(newElement, oldDOM);
+  } else {
+    // 将转换之后的DOM对象放置在页面中
+    container.appendChild(newElement);
   }
 
-  // 将转换之后的DOM对象放置在页面中
-  container.appendChild(newElement);
+  if (oldDOM) {
+    unmountNode(oldDOM);
+  }
 
   // 组件的实例对象
   const component = virtualDom.component;

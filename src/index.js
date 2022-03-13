@@ -123,8 +123,49 @@ class Alert extends TinyReact.Component {
 //   }
 // }
 
-TinyReact.render(<Alert name='chentianfeng' age={18} />, root);
+// TinyReact.render(<Alert name='chentianfeng' age={18} />, root);
 
-setTimeout(() => {
-  TinyReact.render(<Alert name='xiongguofang' age={20} />, root);
-}, 2000);
+// setTimeout(() => {
+//   TinyReact.render(<Alert name='xiongguofang' age={20} />, root);
+// }, 2000);
+
+class DomRef extends TinyReact.Component {
+  constructor(props) {
+    super(props);
+    this.input = null;
+    this.alert = null;
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    console.log(this.input.value);
+    console.log(this.alert);
+  }
+
+  componentDidmount() {
+    console.log("陈天凤");
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          type='text'
+          ref={(input) => {
+            this.input = input;
+          }}
+        />
+        <button onClick={this.handleClick}>改变Title</button>
+        <Alert
+          name='陈天凤'
+          age={18}
+          ref={(alert) => {
+            this.alert = alert;
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+TinyReact.render(<DomRef />, root);

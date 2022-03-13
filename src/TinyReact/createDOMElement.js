@@ -17,10 +17,14 @@ export default function createDOMElement(virtualDom) {
   newElement._virtualDom = virtualDom;
 
   // 递归创建子节点
-  virtualDom.children.forEach(child => {
+  virtualDom.children.forEach((child) => {
     // 递归遍历子节点构建全部的dom
     mountElement(child, newElement);
   });
+
+  if (virtualDom.props && virtualDom.props.ref) {
+    virtualDom.props.ref(newElement);
+  }
 
   return newElement;
 }
